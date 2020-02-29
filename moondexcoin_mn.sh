@@ -23,7 +23,7 @@ sudo apt-get install build-essential  libssl-dev libminiupnpc-dev libevent-dev -
 echo "Packages complete..."
 
 WALLET_VERSION='3.0'
-WANIP=$(dig +short myip.opendns.com @resolver1.opendns.com)
+WANIP=$(curl -4 icanhazip.com)
 PORT='8906'
 RPCPORT='8960'
 PASSWORD=`pwgen -1 20 -n`
@@ -53,7 +53,7 @@ rm -rf .moondexcore
 rm -rf moondex
 rm -rf mnchecker
 
-wget https://github.com/Moondex/MoonDEXCoin/releases/download/v${WALLET_VERSION}/ubuntu16-linux-no-gui-v${WALLET_VERSION}.tar.gz
+wget https://github.com/Moondex/MoonDEXCoin/releases/download/${WALLET_VERSION}/ubuntu16-linux-no-gui-v${WALLET_VERSION}.tar.gz
 mkdir moondex
 tar -zxvf ubuntu16-linux-no-gui-v${WALLET_VERSION}.tar.gz -C moondex
 rm ubuntu16-linux-no-gui-v${WALLET_VERSION}.tar.gz
@@ -70,7 +70,7 @@ echo "PLEASE WAIT 5 MINUTES UNTIL YOU SEE THE RELOADING WALLET MESSAGE"
 echo "=================================================================="
 echo ""
 ~/moondex/moondexd -daemon
-sleep 250
+sleep 60
 ~/moondex/moondex-cli stop
 sleep 20
 
@@ -103,7 +103,7 @@ listen=1
 rpcport=${RPCPORT}
 port=${PORT}
 externalip=$WANIP
-maxconnections=256
+maxconnections=25
 masternode=1
 masternodeprivkey=$GENKEY
 addnode=140.82.48.96:8906
